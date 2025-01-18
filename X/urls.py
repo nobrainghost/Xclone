@@ -27,5 +27,6 @@ urlpatterns = [
     path('api/token/refresh/', CustomTokenRefreshView.as_view(), name='token_refresh'),
     path('api/', include('core.urls')),
     path('user/', include('userprofile.urls')),
+    path('tweet/', include('tweet.urls')),
 
 ]

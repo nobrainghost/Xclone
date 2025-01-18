@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'core',
     'rest_framework_simplejwt',
     'userprofile',
+    'tweet',
 ]
 
 MIDDLEWARE = [
