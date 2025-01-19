@@ -28,5 +28,6 @@ urlpatterns = [
     path('api/', include('core.urls')),
     path('user/', include('userprofile.urls')),
     path('tweet/', include('tweet.urls')),
+    path('accounts/',include('accounts.urls')),
 
 ]
