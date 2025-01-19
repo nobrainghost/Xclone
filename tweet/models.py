@@ -23,6 +23,8 @@ class Like(models.Model):
 
     def __str__(self):
         return f"{self.user.username} Like {self.tweet.id}"
+    
+
 
 class Comment(models.Model):
     tweet=models.ForeignKey(Tweet, on_delete=models.CASCADE)
