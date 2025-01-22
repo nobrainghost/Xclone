@@ -11,8 +11,8 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.decorators import permission_classes
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
-from datetime import timezone,timedelta
-
+from datetime import timedelta
+from django.utils import timezone
 @api_view(['POST'])
 def register_user(request):
     try:
@@ -33,12 +33,15 @@ def protected(request):
 
 class CustomTokenObtainPairView(TokenObtainPairView):
     def post(self, request, *args, **kwargs):
+        username=request.COOKIES.get('username')
+        request.data['username']=username
         response=super().post(request, *args, **kwargs)
+        
 
         access_token=response.data['access']
         refresh_token=response.data['refresh']
 
-        expires=timedelta(days=1)
+        expires=timezone.now()+ timedelta(days=1)
         response.set_cookie(
             'access_token',
             access_token,
@@ -53,6 +56,7 @@ class CustomTokenObtainPairView(TokenObtainPairView):
             httponly=True,
             secure=True,
             samesite='Lax')
+        response.delete_cookie('username')
         return response
 
 class CustomTokenRefreshView(TokenRefreshView):

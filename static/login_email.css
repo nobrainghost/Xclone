@@ -1,0 +1,121 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal {
+    background: white;
+    width: 100%;
+    max-width: 440px;
+    border-radius: 16px;
+    padding: 20px;
+    position: relative;
+}
+
+.close-button {
+    position: absolute;
+    left: 16px;
+    top: 16px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+}
+
+.logo {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.logo img {
+    width: 100px;
+    height: 100px;
+}
+
+h1 {
+    text-align: center;
+    font-size: 31px;
+    margin-bottom: 32px;
+    font-weight: bold;
+}
+
+.signin-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 12px;
+    border: 1px solid #dadce0;
+    border-radius: 20px;
+    background: white;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 500;
+    gap: 8px;
+}
+
+.signin-button img {
+    width: 18px;
+    height: 18px;
+}
+
+.divider {
+    text-align: center;
+    margin: 20px 0;
+    color: #536471;
+}
+
+.input-field {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 20px;
+    border: 1px solid #cfd9de;
+    border-radius: 4px;
+    font-size: 15px;
+}
+
+.input-field:focus {
+    outline: none;
+    border-color: #1da1f2;
+}
+
+.next-button {
+    width: 100%;
+    padding: 12px;
+    background: #0f1419;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-bottom: 20px;
+}
+
+.forgot-password {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    text-align: center;
+    color: #0f1419;
+    text-decoration: none;
+    border: 1px solid #cfd9de;
+    border-radius: 20px;
+    font-size: 15px;
+}
+
+.forgot-password:hover {
+    background: rgba(15, 20, 25, 0.1);
+}

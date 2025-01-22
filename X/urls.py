@@ -29,5 +29,6 @@ urlpatterns = [
     path('user/', include('userprofile.urls')),
     path('tweet/', include('tweet.urls')),
     path('accounts/',include('accounts.urls')),
+    path('x/', include('renderer.urls')),
 
 ]

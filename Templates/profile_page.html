@@ -1,0 +1,109 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile / X</title>
+    <link rel="stylesheet" href="{% static 'profile_page.css' %}">
+</head>
+<body>
+    <div class="container">
+        <!-- Left Sidebar -->
+        <nav class="sidebar">
+            <div class="logo">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                </svg>
+            </div>
+            <a href="#" class="nav-item">
+                <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
+                </svg>
+                <span>Home</span>
+            </a>
+            <!-- Add other navigation items -->
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="profile-header">
+                <div class="cover-photo"></div>
+                <div class="profile-photo"></div>
+                <div class="profile-actions">
+                    <button class="edit-profile-btn">Edit profile</button>
+                </div>
+            </div>
+
+            <div class="profile-info">
+                <h1 class="profile-name">Crystal Mind</h1>
+                <div class="profile-handle">@benar_ml</div>
+                <p class="profile-bio">Building the future of AI • Developer • Tech enthusiast</p>
+                
+                <div class="profile-metadata">
+                    <span>
+                        <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+                            <path d="M12 2.69l5.66 5.66a8 8 0 11-11.31 0z"/>
+                        </svg>
+                        San Francisco, CA
+                    </span>
+                    <span>
+                        <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+                            <path d="M7 4V3h2v1h6V3h2v1h1.5C19.89 4 21 5.12 21 6.5v12c0 1.38-1.11 2.5-2.5 2.5h-13C4.12 21 3 19.88 3 18.5v-12C3 5.12 4.12 4 5.5 4H7z"/>
+                        </svg>
+                        Joined March 2019
+                    </span>
+                </div>
+
+                <div class="follow-stats">
+                    <a href="#"><strong>1,234</strong> <span>Following</span></a>
+                    <a href="#"><strong>5,678</strong> <span>Followers</span></a>
+                </div>
+
+                <div class="profile-tabs">
+                    <a href="#" class="tab active">Posts</a>
+                    <a href="#" class="tab">Replies</a>
+                    <a href="#" class="tab">Media</a>
+                    <a href="#" class="tab">Likes</a>
+                </div>
+            </div>
+
+            <!-- Posts -->
+            <div class="post">
+                <div class="post-avatar"></div>
+                <div class="post-content">
+                    <div class="post-header">
+                        <span class="post-name">Crystal Mind</span>
+                        <span class="post-handle">@benar_ml</span>
+                        <span class="post-time">· 2h</span>
+                    </div>
+                    <div class="post-text">
+                        Excited to share my latest AI project! Check it out and let me know what you think 🚀 #AI #Technology
+                    </div>
+                    <div class="post-actions">
+                        <span>💬 12</span>
+                        <span>🔄 48</span>
+                        <span>❤️ 136</span>
+                        <span>📊 1.2K</span>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Right Sidebar -->
+        <aside class="trending">
+            <div class="search-bar">
+                <input type="text" placeholder="Search">
+            </div>
+            <div class="trending-card">
+                <h2 class="trending-header">Who to follow</h2>
+                <!-- Add suggested accounts -->
+            </div>
+            <div class="trending-card">
+                <h2 class="trending-header">Trending</h2>
+                <!-- Add trending topics -->
+            </div>
+        </aside>
+    </div>
+</body>
+</html>
