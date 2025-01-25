@@ -56,7 +56,6 @@ class CustomTokenObtainPairView(TokenObtainPairView):
             httponly=True,
             secure=True,
             samesite='Lax')
-        response.delete_cookie('username')
         return response
 
 class CustomTokenRefreshView(TokenRefreshView):

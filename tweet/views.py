@@ -9,6 +9,8 @@ from rest_framework.decorators import permission_classes
 from rest_framework.pagination import PageNumberPagination
 from django.contrib.auth.models import User
 from django.views.decorators.csrf import csrf_exempt
+import humanize
+from datetime import datetime
 
 # Create your views here.
 @api_view(['POST'])
@@ -92,13 +94,18 @@ def time_line(request):
     serializer=TweetSerializer(result_page,many=True)
     return paginator.get_paginated_response(serializer.data)
 
-@api_view(['POST'])
+@api_view(['POST','GET'])
 @permission_classes([IsAuthenticated])
 def users_tweets(request,username):
     user=User.objects.get(username=username)
+    #convert linux time to human readable time
+
+
     if not user:
         return Response({"Detail":"No user with such details was found"})
     tweets=Tweet.objects.filter(user=user).order_by('-created_at')
+    
+    
     serializer=TweetSerializer(tweets,many=True)
     return Response(serializer.data)
 

@@ -36,16 +36,16 @@
             </div>
 
             <div class="profile-info">
-                <h1 class="profile-name">Crystal Mind</h1>
-                <div class="profile-handle">@benar_ml</div>
-                <p class="profile-bio">Building the future of AI • Developer • Tech enthusiast</p>
+                <h1 class="profile-name" id="usersname">Crystal Mind</h1>
+                <div class="profile-handle" id="username">@benar_ml</div>
+                <p class="profile-bio" id="userbio">Building the future of AI • Developer • Tech enthusiast</p>
                 
                 <div class="profile-metadata">
                     <span>
                         <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
                             <path d="M12 2.69l5.66 5.66a8 8 0 11-11.31 0z"/>
                         </svg>
-                        San Francisco, CA
+                        <span id="usercity">San Francisco</span>,<span id="usercountry"> CA</span>
                     </span>
                     <span>
                         <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
@@ -56,8 +56,8 @@
                 </div>
 
                 <div class="follow-stats">
-                    <a href="#"><strong>1,234</strong> <span>Following</span></a>
-                    <a href="#"><strong>5,678</strong> <span>Followers</span></a>
+                    <a href="#"><strong id="followingNumber">1,234</strong> <span >Following</span></a>
+                    <a href="#"><strong id="followerscount">5,678</strong> <span >Followers</span></a>
                 </div>
 
                 <div class="profile-tabs">
@@ -69,15 +69,16 @@
             </div>
 
             <!-- Posts -->
+             <div id="tweetcontainer">
             <div class="post">
                 <div class="post-avatar"></div>
                 <div class="post-content">
                     <div class="post-header">
                         <span class="post-name">Crystal Mind</span>
-                        <span class="post-handle">@benar_ml</span>
+                        <span class="post-handle" id="tweetusername" >@benar_m</span>
                         <span class="post-time">· 2h</span>
                     </div>
-                    <div class="post-text">
+                    <div class="post-text" id="tweettext">
                         Excited to share my latest AI project! Check it out and let me know what you think 🚀 #AI #Technology
                     </div>
                     <div class="post-actions">
@@ -88,6 +89,7 @@
                     </div>
                 </div>
             </div>
+        </div>
         </main>
 
         <!-- Right Sidebar -->
@@ -106,4 +108,164 @@
         </aside>
     </div>
 </body>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+    const endpoint = '/user/profile/';
+    
+    fetch(endpoint, {
+        method: 'GET',
+        headers: {
+            'content-Type': 'application/json',
+        }
+    })
+    .then(response => {
+        if(!response.ok){
+            if(response.status === 401){
+                window.location.href = '/x/login/email/';
+                return;
+            }
+            throw new Error('Failed to fetch profile data');
+        }
+        return response.json();
+    })
+    .then(data => {
+        console.log(data);
+        // Set the username and other fields
+        document.getElementById('username').textContent = data.username;
+        document.getElementById('tweetusername').textContent = data.username;
+        document.getElementById('usercity').textContent = data.city;
+        document.getElementById('usercountry').textContent = data.country;
+        document.getElementById('userbio').textContent = data.bio;
+        document.getElementById('usersname').textContent = data.name;
+        
+        // Store the username globally for later use
+        globalThis.username = data.username;
+
+        // Fetch the following count once username is set
+        const following_endpoint = `/accounts/following/${globalThis.username}/`;
+
+        fetch(following_endpoint, {
+            method: 'GET',
+            headers: {
+                'content-Type': 'application/json',
+            }
+        })
+        .then(response => {
+            if(!response.ok){
+                if(response.status === 401){
+                    window.location.href = '/x/login/email/';
+                    return;
+                }
+                throw new Error('Failed to fetch following data');
+            }
+            return response.json();
+        })
+        
+        .then(followingData => {
+            console.log(followingData);
+            followingNumber = followingData.length;
+            document.getElementById('followingNumber').textContent = followingNumber;
+            console.log(followingNumber);
+            console.log('Element:', document.getElementById('followingNumber'));
+
+        })
+        .catch(error => {
+            console.error('Error Fetching Following Data:', error);
+        });
+
+        // Fetch the followers count once username is set
+        const followers_endpoint = `/accounts/followers/${globalThis.username}/`;
+
+        fetch(followers_endpoint, {
+            method: 'GET',
+            headers: {
+                'content-Type': 'application/json',
+            }
+        })
+        .then(response => {
+            if(!response.ok){
+                if(response.status === 401){
+                    window.location.href = '/x/login/email/';
+                    return;
+                }
+                throw new Error('Failed to fetch followers data');
+            }
+            return response.json();
+        })
+        .then(followersData => {
+            console.log(followersData);
+            followerscount = followersData.length;
+            document.getElementById('followerscount').textContent = followerscount;
+            console.log(followerscount);
+
+            const tweet_endpoint = `/tweet/tweets/${globalThis.username}/`;
+
+            fetch(tweet_endpoint, {
+                method: 'POST',
+                headers: {
+                    'content-Type': 'application/json',
+                }
+            })
+            .then(response => {
+                if(!response.ok){
+                    if(response.status === 401){
+                        window.location.href = '/x/login/email/';
+                        return;
+                    }
+                    throw new Error('Failed to fetch tweet data');
+                }
+                return response.json();
+            })
+            .then(tweetData => {
+                console.log(tweetData);
+                if (tweetData.length === 0){
+                    document.getElementById('tweettext').textContent = 'No tweets yet';
+                    return;
+                } else {
+                    const tweetsContainer = document.getElementById('tweetcontainer');
+                    tweetData.forEach((tweet) => {
+                        const tweetElement = document.createElement('div');
+                        tweetElement.className = 'post';
+                        tweetElement.innerHTML = `
+                            <div class="post-avatar"></div>
+                            <div class="post-content">
+                                <div class="post-header" id="${tweet.id}">
+                                    <span class="post-name">${data.name}</span>
+                                    <span class="post-handle">@${data.username}</span>
+                                    <span class="post-time">· ${tweet.created_at_human}</span>
+                                </div>
+                                <div class="post-text">${tweet.content}</div>
+                                <div class="post-actions">
+                                    <span>💬 ${tweet.replies_count}</span>
+                                    <span>🔄 ${tweet.retweets_count}</span>
+                                    <span>❤️ ${tweet.likes_count}</span>
+                                    <span>📊 ${tweet.views_count}</span>
+                                </div>
+                            </div>
+                        `;
+                        tweetsContainer.appendChild(tweetElement);
+                    });
+                console.log(tweetData[0].content);}
+            })
+            .catch(error => {
+                console.error('Error Fetching Tweet Data:', error);
+            });
+        })
+        .catch(error => {
+            console.error('Error Fetching Followers Data:', error);
+        });
+
+
+    })
+    .catch(error => {
+        console.error('Error Fetching User Data:', error);
+    });
+
+    // Fetch the tweets once the username is set
+    
+
+});
+
+
+</script>
 </html>

@@ -53,7 +53,7 @@ def fetch_followers(request,username):
         user=User.objects.get(username=username)
         followers=Follow.objects.filter(followed=user)
         follower_usernames=[follow.follower.username for follow in followers]
-        return Response({"Followers":follower_usernames},status=status.HTTP_200_OK)
+        return Response(follower_usernames)
     except User.DoesNotExist:
         return Response({"Error":"User Not Found"},status=status.HTTP_400_BAD_REQUEST)
     
@@ -63,8 +63,8 @@ def fetch_followers(request,username):
 def fetch_following(request,username):
     try:
         user=User.objects.get(username=username)
-        following=user.following.all()
-        following_usernames=[followed.username for followed in following]
+        following=Follow.objects.filter(follower=user)
+        following_usernames=[followed.followed.username for followed in following]
         return Response(following_usernames)
     except User.DoesNotExist:
         return Response({"Error":"User Does Not Exist"},status=status.HTTP_400_BAD_REQUEST)

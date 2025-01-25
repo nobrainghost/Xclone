@@ -14,7 +14,9 @@ def get_user_profile(request):
     try:
         user_profile = UserProfile.objects.get(user=request.user)
         serializer = UserProfileSerializer(user_profile)
-        return Response(serializer.data)
+        data = serializer.data
+        data['username'] = request.user.username
+        return Response(data)
     except UserProfile.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
 @api_view(['POST'])
