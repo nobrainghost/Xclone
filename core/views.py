@@ -46,15 +46,15 @@ class CustomTokenObtainPairView(TokenObtainPairView):
             'access_token',
             access_token,
             expires=expires,
-            httponly=True,
-            secure=True,
+            httponly=False,
+            secure=False,
             samesite='Lax')
         response.set_cookie(
             'refresh_token',
             refresh_token,
             expires=expires,
-            httponly=True,
-            secure=True,
+            httponly=False,
+            secure=False,
             samesite='Lax')
         return response
 
@@ -70,8 +70,8 @@ class CustomTokenRefreshView(TokenRefreshView):
             'access_token',
             new_access,
             expires=expires,
-            httponly=True,
-            secure=True,
+            httponly=False,
+            secure=False,
             samesite='Lax')
         return response
 

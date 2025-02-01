@@ -31,8 +31,10 @@
                 <div class="cover-photo"></div>
                 <div class="profile-photo"></div>
                 <div class="profile-actions">
-                    <button class="edit-profile-btn">Edit profile</button>
-                </div>
+                    <a href="{% url 'edit_profile' %}">
+                        <button class="edit-profile-btn" id="edit-profile-btn">Edit profile</button>
+                      </a>
+                                      </div>
             </div>
 
             <div class="profile-info">
@@ -180,7 +182,9 @@
             method: 'GET',
             headers: {
                 'content-Type': 'application/json',
-            }
+                'Authorization': `Token ${localStorage.getItem('access_token')}`,
+            },
+            
         })
         .then(response => {
             if(!response.ok){

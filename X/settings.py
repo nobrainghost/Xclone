@@ -45,7 +45,8 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt',
     'userprofile',
     'tweet',
-    'accounts'
+    'accounts',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
@@ -57,6 +58,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'X.middleware.jwt_cookie_middleware',
+    'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = 'X.urls'
@@ -146,4 +148,6 @@ STATICFILES_DIRS = [
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 CORS_ALLOW_ALL_ORIGINS = True
+ACCESS_CONTROL_ALLOW_ORIGIN = True
 CORS_ALLOW_CREDENTIALS = True
+CORS_ALLOW_METHODS = ['DELETE', 'GET', 'OPTIONS', 'PATCH', 'POST', 'PUT']

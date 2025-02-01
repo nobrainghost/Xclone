@@ -25,3 +25,6 @@ def render_password_login(request):
 
 def render_profile(request):
     return render(request, 'profile_page.html')
+
+def render_edit_profile(request):
+    return render(request, 'edit_profile.html')
