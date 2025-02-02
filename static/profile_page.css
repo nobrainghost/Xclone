@@ -7,7 +7,7 @@
 
 body {
     background-color: #000;
-    color: #fff;
+    color: #ffffff;
 }
 
 .container {
@@ -184,6 +184,25 @@ body {
     gap: 1px;
     width: 100%;
 }
+.create-tweet-button{
+    position: relative;
+    width: 100%; /* Adjust as needed */
+    height: 20px; /* Adjust as needed */
+    background: #000000; 
+    
+    
+    
+}
+.create-tweet-button button{
+    position: absolute;
+    bottom: 8px;
+    right: 8px;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    font-size: 17px;
+    color:blue;
+}
 
 /* Posts Section */
 .post {
@@ -232,7 +251,24 @@ body {
     max-width: 425px;
     margin-top: 8px;
     color: #71767b;
+    border: none;
   }
+
+.post-actions span{
+    color:white;
+
+    background: black;
+    border: 1px solid black;
+}
+.post-actions button{
+    border: 2px solid black
+
+}
+.post-actions button :hover{
+    border: 2px solid rgb(48, 38, 38);
+    background: #000;
+    border-radius: 2px;
+}
 
 /* Right Sidebar */
 .trending {
@@ -272,6 +308,96 @@ body {
     font-weight: bold;
     margin-bottom: 12px;
 }
+
+/* .actionbuttons {
+    background: none;
+    border: 10px solid green;
+    padding: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    color: inherit;
+}
+
+.actionbuttons span {
+    background: none;
+} */
+.post-popup {
+    display: none; /* Hidden by default */
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.5); /* Black w/ opacity */
+}
+
+.post-popup-content {
+    background-color: #000;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 500px;
+    border-radius: 10px;
+}
+
+.close-button {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close-button:hover,
+.close-button:focus {
+    color: rgb(4, 0, 255);
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.post-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.profile-pic {
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+}
+
+.username {
+    font-weight: bold;
+}
+
+.post-textarea {
+    width: 100%;
+    height: 100px;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #000000;
+    border-radius: 5px;
+}
+
+.post-submit-button {
+    background-color: #1d9bf0;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.post-submit-button:hover {
+    background-color: #0d8bf0;
+}
+
 
 @media (max-width: 1020px) {
     .container {

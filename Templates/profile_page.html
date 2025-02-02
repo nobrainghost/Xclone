@@ -69,13 +69,13 @@
                     <a href="#" class="tab">Likes</a>
                 </div>
             </div>
-
+           
             <!-- Posts -->
              <div id="tweetcontainer">
-            <div class="post">
-                <div class="post-avatar"></div>
+            <div class="post" id="1">
+                <!-- <div class="post-avatar"></div> -->
                 <div class="post-content">
-                    <div class="post-header">
+                    <div class="post-header"> <div class="post-avatar"></div>
                         <span class="post-name">Crystal Mind</span>
                         <span class="post-handle" id="tweetusername" >@benar_m</span>
                         <span class="post-time">· 2h</span>
@@ -84,13 +84,26 @@
                         Excited to share my latest AI project! Check it out and let me know what you think 🚀 #AI #Technology
                     </div>
                     <div class="post-actions">
-                        <span>💬 12</span>
-                        <span>🔄 48</span>
-                        <span>❤️ 136</span>
+                        <button type="submit" id="commentbutton" class="actionbuttons"> <span>💬 12</span></button>
+                        <button type="submit" id="retweetbutton" class="actionbuttons"><span>🔄 48</span></button>
+                        <button type="submit" id="likebutton" class="actionbuttons"><span id="heartmoji">🤍 136</span></button>
                         <span>📊 1.2K</span>
                     </div>
                 </div>
             </div>
+            <div id="post-popup" class="post-popup">
+                <div class="post-popup-content">
+                    <span class="close-button">&times;</span>
+                    <div class="post-header">
+                        <div class="post-avatar"></div>
+                        <span class="post-handle" id="tweetusername2" >@benar_m</span>
+                    </div>
+                    <textarea placeholder="What's happening?" class="post-textarea" id="tweetContent"></textarea>
+                    <button class="post-submit-button" id="post-submit-button">Post</button>
+                </div>
+            </div>
+            <div class="create-tweet-button"><button id="create-tweet-button">+</button></div>
+
         </div>
         </main>
 
@@ -112,6 +125,88 @@
 </body>
 <script>
     document.addEventListener('DOMContentLoaded', function () {
+        const postPopup = document.getElementById('post-popup');
+    const closeButton = document.querySelector('.close-button');
+    const postButton = document.getElementById('create-tweet-button');
+    const submitTweet=document.getElementById('post-submit-button')
+
+    postButton.addEventListener('click', () => {
+        postPopup.style.display = 'block';
+    });
+
+    closeButton.addEventListener('click', () => {
+        postPopup.style.display = 'none';
+    });
+    function getCookie(name) {
+    let cookieArr = document.cookie.split(';');
+    for (let i = 0; i < cookieArr.length; i++) {
+        let cookie = cookieArr[i].trim();
+        if (cookie.startsWith(name + '=')) {
+            return cookie.substring(name.length + 1);
+        }
+    }
+    return null;
+    }
+    const access_token=getCookie('access_token');
+
+
+    const creteTweetEndpoint='/tweet/create/'
+    submitTweet.addEventListener('click', (e)=>{
+        const tweetContent=document.getElementById('tweetContent')
+        const content=tweetContent.value
+        console.log(content)
+        fetch(creteTweetEndpoint,{
+            method:'POST',
+            headers:{
+                'content-Type': 'application/json',                
+                'Authorization': `Bearer ${access_token}`,
+
+
+            },
+            body:JSON.stringify({content})
+        })
+
+    }
+    )
+
+
+    window.addEventListener('click', (event) => {
+        if (event.target == postPopup) {
+            postPopup.style.display = 'none';
+        }
+    });
+    const likemoji=document.getElementById('heartmoji');
+    // const unlikeEndpoint='/tweet/unlike/'
+    
+    likemoji.addEventListener('click',(e)=>{
+        // const focustweet=document.getElementById('tweetID')
+        // focustweetId=focustweet.innerHTML
+        // console.log(focustweetId)
+        const tweetParentDiv=e.target.closest('.post');
+        const tweetId=tweetParentDiv.id;
+        const likeEndpoint=`/tweet/like/${tweetId}/`
+
+        console.log(tweetId)
+        if(likemoji.innerHTML=='❤️ 136'){
+            likemoji.innerHTML='🤍 136';
+            fetch(likeEndpoint,{
+           method:'DELETE',
+           headers:{
+            'content-Type': 'application/json',
+        },
+        })
+        }else
+        {likemoji.innerHTML='❤️ 136';
+        fetch(likeEndpoint,{
+           method:'POST',
+           headers:{
+            'content-Type': 'application/json',
+        },
+        })
+
+        }
+    })
+
     const endpoint = '/user/profile/';
     
     fetch(endpoint, {
@@ -135,6 +230,8 @@
         // Set the username and other fields
         document.getElementById('username').textContent = data.username;
         document.getElementById('tweetusername').textContent = data.username;
+        document.getElementById('tweetusername2').textContent = data.username;
+
         document.getElementById('usercity').textContent = data.city;
         document.getElementById('usercountry').textContent = data.country;
         document.getElementById('userbio').textContent = data.bio;
@@ -231,18 +328,17 @@
                         const tweetElement = document.createElement('div');
                         tweetElement.className = 'post';
                         tweetElement.innerHTML = `
-                            <div class="post-avatar"></div>
                             <div class="post-content">
-                                <div class="post-header" id="${tweet.id}">
+                                <div class="post-header" id="${tweet.id}"><div class="post-avatar"></div>
                                     <span class="post-name">${data.name}</span>
                                     <span class="post-handle">@${data.username}</span>
                                     <span class="post-time">· ${tweet.created_at_human}</span>
                                 </div>
                                 <div class="post-text">${tweet.content}</div>
                                 <div class="post-actions">
-                                    <span>💬 ${tweet.replies_count}</span>
-                                    <span>🔄 ${tweet.retweets_count}</span>
-                                    <span>❤️ ${tweet.likes_count}</span>
+                                    <button type="submit" id="commentbutton" class="actionbuttons"> <span>💬 ${tweet.replies_count}</span></button>
+                                    <button type="submit" id="retweetbutton" class="actionbuttons"> <span>🔄 ${tweet.retweets_count}</span></button>
+                                    <button type="submit" id="likebutton" class="actionbuttons"><span class="heartmoji" id="heartmoji">🤍 ${tweet.likes_count}</span></button>
                                     <span>📊 ${tweet.views_count}</span>
                                 </div>
                             </div>
@@ -269,7 +365,6 @@
     
 
 });
-
 
 </script>
 </html>

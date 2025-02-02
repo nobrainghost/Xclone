@@ -125,3 +125,5 @@ def comment_tweet(request):
         comment=Comment.objects.create(tweet=tweet, user=request.user, content=content)
         return Response({'message':'Success'}, status=200)
     return Response({'error':'Invalid request'}, status=400)
+
+##RETWEETS

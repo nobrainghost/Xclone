@@ -4,7 +4,7 @@ from .views import time_line,users_tweets
 
 urlpatterns = [
     path('create/', create_tweet, name='create_tweet'),
-    path('like/', like_tweet, name='like_tweet'),
+    path('like/<int:tweet_id>/', like_tweet, name='like_tweet'),
     path('comment/', comment_tweet, name='comment_tweet'),
     path('timeline/',time_line,name="timeline"),
     path('tweets/<str:username>/',users_tweets,name='get_a_user_tweets'),
