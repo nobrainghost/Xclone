@@ -58,6 +58,7 @@ body {
 }
 
 .post-btn {
+    display: block;
     background-color: #1d9bf0;
     color: #fff;
     border: none;
@@ -69,10 +70,77 @@ body {
     cursor: pointer;
     transition: background-color 0.2s;
 }
-
+.post-btn2 {
+    display: none;
+    background-color: #1d9bf0;
+    color: #fff;
+    border: none;
+    border-radius: 9999px;
+    padding: 16px 32px;
+    font-size: 17px;
+    font-weight: bold;
+    margin-top: 16px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
 .post-btn:hover {
     background-color: #1a8cd8;
 }
+    /* Popup container */
+    .comment-popup {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.6);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 999;
+    }
+
+    /* Comment Box */
+    .comment-box {
+        background: #1a1a1a;
+        padding: 15px;
+        width: 500px;
+        border-radius: 10px;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+    }
+
+    .tweet-box {
+        display: flex;
+        gap: 10px;
+    }
+
+    .tweet-input textarea {
+        width: 100%;
+        background: transparent;
+        color: white;
+        border: none;
+        outline: none;
+        resize: none;
+        font-size: 16px;
+    }
+
+    .tweet-actions {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 10px;
+    }
+
+    .tweet-btn {
+        background: #1da1f2;
+        border: none;
+        padding: 5px 15px;
+        color: white;
+        font-weight: bold;
+        border-radius: 5px;
+        cursor: pointer;
+    }
 
 /* Main Content Styles */
 .main-content {

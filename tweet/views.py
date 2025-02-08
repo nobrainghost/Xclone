@@ -85,8 +85,7 @@ def delete_tweet(request):
 class TweetPagination(PageNumberPagination):
     page_size=10
 
-@api_view(['POST'])
-@permission_classes([IsAuthenticated])
+@api_view(['POST','GET'])
 def time_line(request):
     tweets=Tweet.objects.all().order_by('-created_at')
     paginator=TweetPagination()
